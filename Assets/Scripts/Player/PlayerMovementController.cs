@@ -7,6 +7,8 @@ namespace Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
     {
+        public bool CanRotate { get; private set; }
+
         [SerializeField]
         private float _movementVelocity;
         
@@ -19,16 +21,18 @@ namespace Player
         [SerializeField]
         private float _maxRotationAngle;
 
+        [SerializeField]
+        private SpriteRenderer _aimSprite;
+
         private Rigidbody2D _rigidbody;
         private Vector3 _startPosition;
+        
         private Quaternion _quaternionMinRotationAngle;
         private Quaternion _quaternionMaxRotationAngle;
-        private float _currentTime;
-
-        private bool _isMoving;
-        private bool _canRotate;
         
-
+        private float _currentTime;
+        private bool _isMoving;
+        
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -38,53 +42,40 @@ namespace Player
 
             _startPosition = transform.position;
             _isMoving = false;
-            _canRotate = true;
+            CanRotate = true;
         }
-
-        // when player returns to start point
-        [UsedImplicitly]
-        public void ResetPosition()
+        public void Rotate()
         {
-            if (!_isMoving) return;
-            
-            _isMoving = !_isMoving;
-            _canRotate = true;
-            _rigidbody.velocity = Vector2.zero;
-            transform.position = _startPosition;
-
+            _currentTime += Time.deltaTime;
+            var progress = Mathf.PingPong(_currentTime, _duration) / _duration;
+            transform.rotation = Quaternion.Lerp(_quaternionMinRotationAngle, _quaternionMaxRotationAngle, progress);
         }
-
-        // from event after player collision with enemy
-        [UsedImplicitly]
-        public void ChangeDirection()
-        {
-            _rigidbody.velocity *= -1;
-        }
-
+        
         public void Move()
         {
             if (_isMoving) return;
             
             _isMoving = !_isMoving;
-            _canRotate = false;
-            _rigidbody.velocity = transform.up * _movementVelocity;
-
-        }
-        
-        private void Update()
-        {
-            if (_canRotate)
-            {
-                Rotate();
-            }
+            CanRotate = false;
+            _aimSprite.enabled = false;
             
+            _rigidbody.velocity = transform.up * _movementVelocity;
         }
         
-        private void Rotate()
+        public void ResetPosition()
         {
-            _currentTime += Time.deltaTime;
-            var progress = Mathf.PingPong(_currentTime, _duration) / _duration;
-            transform.rotation = Quaternion.Lerp(_quaternionMinRotationAngle, _quaternionMaxRotationAngle, progress);
+            if (!_isMoving) return;
+            
+            _isMoving = !_isMoving;
+            CanRotate = true;
+            _aimSprite.enabled = true;
+            _rigidbody.velocity = Vector2.zero;
+            transform.position = _startPosition;
+        }
+        
+        public void ChangeDirection()
+        {
+            _rigidbody.velocity *= -1;
         }
     }
 }

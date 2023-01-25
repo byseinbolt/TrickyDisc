@@ -7,7 +7,10 @@ namespace Player
 {
     public class PlayerMoveTimer : MonoBehaviour
     {
-        public UnityEvent TimeIsOver;
+        public event Action TimeIsOver;
+
+        [SerializeField]
+        private Transform _timer;
         
         [SerializeField]
         private float _timerDuration;
@@ -18,10 +21,10 @@ namespace Player
         private Sequence _timerSequence;
         private Vector3 _startTimerScale;
 
-        private void Start()
-        {
-            _startTimerScale = transform.localScale;
 
+        private void Awake()
+        {
+            _startTimerScale = _timer.localScale;
             StartTimerSequence();
         }
 
@@ -29,9 +32,20 @@ namespace Player
         {
             _timerSequence = DOTween.Sequence();
             _timerSequence.SetAutoKill(false);
-            _timerSequence.Append(transform.DOScale(_startTimerScale, 0f));
-            _timerSequence.Append(transform.DOScale(_finishTimerScale, _timerDuration));
-            _timerSequence.OnComplete(() => TimeIsOver.Invoke());
+            _timerSequence.Append(_timer.DOScale(_startTimerScale, 0f));
+            _timerSequence.Append(_timer.DOScale(_finishTimerScale, _timerDuration));
+            _timerSequence.OnComplete(() => TimeIsOver?.Invoke());
+        }
+
+        public void RestartTimer()
+        {
+            _timerSequence.Restart();
+        }
+
+        public void StopTimer()
+        {
+            _timerSequence.Pause();
+            _timer.localScale = Vector3.zero;
         }
 
         private void OnDestroy()
