@@ -1,5 +1,5 @@
-using System;
 using DG.Tweening;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,6 +7,7 @@ namespace Enemy
 {
     public class EnemyController : MonoBehaviour
     {
+        [Header("Movement")]
         [SerializeField]
         private float _minMovingDuration;
 
@@ -15,6 +16,10 @@ namespace Enemy
 
         [SerializeField]
         private float _delayBetweenMovements;
+
+        [Header("Effects and Sound")]
+        [SerializeField]
+        private ParticleSystem _deathEffect;
         
         private float _minPointX;
         private float _maxPointX;
@@ -47,7 +52,9 @@ namespace Enemy
 
         public void Destroy()
         {
+            var deathParticle = Instantiate(_deathEffect, transform.position, quaternion.identity);
             Destroy(gameObject);
+            Destroy(deathParticle.gameObject, 2f);
         }
 
         private float GetRandomDuration()

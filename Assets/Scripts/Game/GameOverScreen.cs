@@ -15,8 +15,12 @@ namespace Game
         [SerializeField]
         private TextMeshProUGUI _bestScoreLabel;
 
+        [Header("Animation")]
         [SerializeField]
         private float _newBestScoreAnimationDuration;
+
+        [SerializeField]
+        private AudioSource _bestScoreSound;
 
         private void Awake()
         {
@@ -27,7 +31,7 @@ namespace Game
             {
                 bestScore = currentScore;
                 SetNewBestScore(bestScore);
-                _bestScoreLabel.transform.DOPunchScale(Vector3.one, _newBestScoreAnimationDuration, 0);
+                ShowNewBestScoreAnimation();
             }
 
             _scoreLabel.text = currentScore.ToString();
@@ -46,6 +50,12 @@ namespace Game
         public void ExitToStartGameScreen()
         {
             SceneManager.LoadSceneAsync(GlobalConstants.START_GAME_SCENE);
+        }
+
+        private void ShowNewBestScoreAnimation()
+        {
+            _bestScoreLabel.transform.DOPunchScale(Vector3.one, _newBestScoreAnimationDuration, 0);
+            _bestScoreSound.Play();
         }
 
         private void SetNewBestScore(int newBestScore)

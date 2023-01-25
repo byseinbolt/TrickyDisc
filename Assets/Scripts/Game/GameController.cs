@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Enemy;
 using Player;
 using UI;
@@ -20,7 +21,12 @@ namespace Game
 
         [SerializeField]
         private float _delayBeforeChangeScene;
-        
+
+        private void Awake()
+        {
+            Application.targetFrameRate = 60;
+        }
+
         private void Start()
         {
             _collisionController.EnemyDestroyed += _enemySpawner.Spawn;

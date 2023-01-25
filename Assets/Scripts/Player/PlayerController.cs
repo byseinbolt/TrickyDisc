@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Player
@@ -8,11 +9,18 @@ namespace Player
     [RequireComponent(typeof(PlayerMovementController))]
     public class PlayerController : MonoBehaviour
     {
+        [Header("Effects and Sounds")]
+        [SerializeField]
+        private AudioSource _moveSound;
+
+        [SerializeField]
+        private ParticleSystem _deathEffect;
+        
         private CollisionController _collisionController;
         private PlayerMoveTimer _moveTimer;
         private PlayerMovementController _movementController;
         private InputActions _playerInputActions;
-
+        
         private void Awake()
         {
             _movementController = GetComponent<PlayerMovementController>();
@@ -55,11 +63,14 @@ namespace Player
         {
             _movementController.Move();
             _moveTimer.StopTimer();
+            _moveSound.Play();
         }
 
         private void OnDied()
         {
+            var deathParticle = Instantiate(_deathEffect, transform.position, quaternion.identity);
             Destroy(gameObject);
+            Destroy(deathParticle.gameObject, 2f);
         }
 
         private void OnDisable()

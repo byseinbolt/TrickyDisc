@@ -117,3 +117,4 @@ MonoBehaviour:
   _minMovingDuration: 0.9
   _maxMovingDuration: 2
   _delayBetweenMovements: 1
+  _deathEffect: {fileID: 668977754387144313, guid: 1e1a381e6a513004cbf6ddb15d037645, type: 3}

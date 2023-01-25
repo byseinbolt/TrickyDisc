@@ -8,6 +8,7 @@ namespace UI
 {
     public class ScoreController : MonoBehaviour
     {
+        [Header("View")]
         [SerializeField]
         private TextMeshProUGUI _scoreLabel;
         
@@ -20,6 +21,10 @@ namespace UI
 
         [SerializeField]
         private float _scaleFactor;
+
+        [Header("Sound")]
+        [SerializeField]
+        private AudioSource _changeScoreSound;
         
 
         private int _currentScore;
@@ -33,6 +38,7 @@ namespace UI
         {
             _currentScore += _scoreCountPerEnemy;
             _scoreLabel.text = _currentScore.ToString();
+            _changeScoreSound.Play();
             _scoreLabel.transform.DOPunchScale(Vector3.one * _scaleFactor, _animationDuration, 0)
                 .OnComplete(() => _scoreLabel.transform.localScale = Vector3.one);
         }
