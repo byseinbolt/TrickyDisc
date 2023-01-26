@@ -9,7 +9,7 @@ namespace Player
     [RequireComponent(typeof(PlayerMovementController))]
     public class PlayerController : MonoBehaviour
     {
-        [Header("Effects and Sounds")]
+        [Header("Effects and Sound")]
         [SerializeField]
         private AudioSource _moveSound;
 
