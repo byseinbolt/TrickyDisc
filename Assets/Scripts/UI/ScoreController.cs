@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using Game;
 using TMPro;
@@ -11,21 +10,21 @@ namespace UI
         [Header("View")]
         [SerializeField]
         private TextMeshProUGUI _scoreLabel;
-        
+
         [SerializeField]
         private int _scoreCountPerEnemy;
 
-        [Header("Animation")] 
-        [SerializeField] 
+        [Header("Animation")]
+        [SerializeField]
         private float _animationDuration;
 
         [SerializeField]
         private float _scaleFactor;
 
         [Header("Sound")]
-        [SerializeField]
+        [SerializeField] 
         private AudioSource _changeScoreSound;
-        
+
 
         private int _currentScore;
 

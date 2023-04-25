@@ -11,7 +11,7 @@ namespace Enemy
         [SerializeField]
         private float _minMovingDuration;
 
-        [SerializeField]
+        [SerializeField] 
         private float _maxMovingDuration;
 
         [SerializeField]
@@ -20,13 +20,12 @@ namespace Enemy
         [Header("Effects and Sound")]
         [SerializeField]
         private ParticleSystem _deathEffect;
-        
+
         private float _minPointX;
         private float _maxPointX;
         private SpriteRenderer _enemySprite;
         private Sequence _moveSequence;
         
-
         private void Awake()
         {
             _enemySprite = GetComponent<SpriteRenderer>();
@@ -36,18 +35,17 @@ namespace Enemy
             _maxPointX = mainCamera.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x - offsetX;
         }
 
-       
-        
+
+
         public void Move()
         {
             var duration = GetRandomDuration();
             var position = GetRandomPosition();
-            
-             _moveSequence = DOTween.Sequence();
+
+            _moveSequence = DOTween.Sequence();
             _moveSequence.Append(transform.DOMoveX(position, duration));
             _moveSequence.AppendInterval(_delayBetweenMovements)
                 .OnComplete(Move);
-
         }
 
         public void Destroy()

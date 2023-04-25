@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Enemy;
 using Player;
 using UI;
@@ -12,7 +11,7 @@ namespace Game
     {
         [SerializeField]
         private EnemySpawner _enemySpawner;
-        
+
         [SerializeField]
         private CollisionController _collisionController;
 
@@ -38,6 +37,7 @@ namespace Game
         {
             StartCoroutine(ShowGameOver());
         }
+
         private void OnDestroy()
         {
             _collisionController.EnemyDestroyed -= _enemySpawner.Spawn;
@@ -51,6 +51,6 @@ namespace Game
             yield return new WaitForSeconds(_delayBeforeChangeScene);
             SceneManager.LoadSceneAsync(GlobalConstants.GAMEOVER_SCENE);
         }
-        
+
     }
 }

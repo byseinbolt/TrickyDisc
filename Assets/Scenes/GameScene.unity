@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementVelocity: 11
-  _duration: 1
+  _duration: 0.9
   _minRotationAngle: -30
   _maxRotationAngle: 30
   _aimSprite: {fileID: 2129413989}

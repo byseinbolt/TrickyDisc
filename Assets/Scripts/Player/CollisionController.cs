@@ -2,7 +2,6 @@
 using Enemy;
 using Game;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Player
 {
@@ -10,9 +9,8 @@ namespace Player
     {
         public event Action EnemyDestroyed;
         public event Action PlayerCameToStart;
-
         public event Action PlayerDied;
-        
+
         private void OnTriggerEnter2D(Collider2D otherCollider)
         {
             if (otherCollider.CompareTag(GlobalConstants.BORDER_TAG))
@@ -23,7 +21,7 @@ namespace Player
             if (otherCollider.CompareTag(GlobalConstants.ENEMY_TAG))
             {
                 otherCollider.TryGetComponent(out EnemyController controller);
-                if (controller!=null)
+                if (controller != null)
                 {
                     controller.Destroy();
                     EnemyDestroyed?.Invoke();

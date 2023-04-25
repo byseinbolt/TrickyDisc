@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Unity.Mathematics;
+﻿using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,13 +8,13 @@ namespace Enemy
     {
         [SerializeField]
         private Transform _leftSpawnPoint;
-        
+
         [SerializeField]
         private Transform _rightSpawnPoint;
 
         [SerializeField]
         private EnemyController _enemyPrefab;
-        
+
         private void Start()
         {
             Spawn();
@@ -28,7 +26,7 @@ namespace Enemy
             var enemy = Instantiate(_enemyPrefab, spawnPosition, quaternion.identity);
             enemy.Move();
         }
-        
+
         private bool ShouldSpawnOnTheLeftSide()
         {
             return Random.Range(0, 2) == 1;

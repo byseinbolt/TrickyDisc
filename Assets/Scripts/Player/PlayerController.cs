@@ -15,19 +15,19 @@ namespace Player
 
         [SerializeField]
         private ParticleSystem _deathEffect;
-        
+
         private CollisionController _collisionController;
         private PlayerMoveTimer _moveTimer;
         private PlayerMovementController _movementController;
         private InputActions _playerInputActions;
-        
+
         private void Awake()
         {
             _movementController = GetComponent<PlayerMovementController>();
             _moveTimer = GetComponent<PlayerMoveTimer>();
             _collisionController = GetComponent<CollisionController>();
             _playerInputActions = new InputActions();
-            
+
             _playerInputActions.Player.Move.performed += OnMove;
             _moveTimer.TimeIsOver += _movementController.Move;
             _collisionController.EnemyDestroyed += _movementController.ChangeDirection;

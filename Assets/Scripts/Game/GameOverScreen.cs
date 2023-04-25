@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using JetBrains.Annotations;
 using TMPro;
@@ -15,7 +14,7 @@ namespace Game
         [SerializeField]
         private TextMeshProUGUI _bestScoreLabel;
 
-        [Header("Animation")]
+        [Header("Animation and Sound")]
         [SerializeField]
         private float _newBestScoreAnimationDuration;
 

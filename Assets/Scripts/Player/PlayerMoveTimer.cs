@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Events;
 
 namespace Player
 {
@@ -11,17 +10,16 @@ namespace Player
 
         [SerializeField]
         private Transform _timer;
-        
+
         [SerializeField]
         private float _timerDuration;
 
         [SerializeField]
         private Vector3 _finishTimerScale;
-        
+
         private Sequence _timerSequence;
         private Vector3 _startTimerScale;
-
-
+        
         private void Awake()
         {
             _startTimerScale = _timer.localScale;

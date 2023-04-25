@@ -7,10 +7,10 @@ namespace Game
     {
         [SerializeField]
         private Image _image;
-        
-        [SerializeField] 
+
+        [SerializeField]
         private Sprite _activeSoundSprite;
-        
+
         [SerializeField]
         private Sprite _inactiveSoundSprite;
 
@@ -21,7 +21,7 @@ namespace Game
             _soundVolume = PlayerPrefs.GetInt(GlobalConstants.SOUND_ENABLED_PREFS_KEY, 1);
             SetSoundVolume();
         }
-        
+
         public void ToggleSound()
         {
             _soundVolume = _soundVolume == 1 ? 0 : 1;
